@@ -1,0 +1,12 @@
+checkout:
+  post:
+    - gem install fake_sqs
+    - gem install fakes3
+dependencies:
+  pre:
+    - go get github.com/tools/godep
+  override:
+    - godep go build
+test:
+  override:
+    - godep go test -v -race
