@@ -17,6 +17,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/garyburd/redigo/redis"
+	"github.com/aws/aws-sdk-go/aws/session"
 )
 
 const (
@@ -119,7 +120,8 @@ func NewFakeSQS(queueName string) *FakeSQS {
 	}
 
 	tryConnect := func() bool {
-		s.Client = sqs.New(fakeAWSConfig(sqsEndpoint))
+		session := session.New(fakeAWSConfig(sqsEndpoint))
+		s.Client = sqs.New(session)
 		_, err = s.Client.CreateQueue(&sqs.CreateQueueInput{
 			QueueName: &queueName,
 		})
@@ -176,7 +178,8 @@ func NewFakeS3(bucketName string) *FakeS3 {
 	}
 	WaitFor(tryConnect, fail, 3*time.Second)
 
-	s.Client = s3.New(fakeAWSConfig("http://0.0.0.0:" + s3Port))
+	session := session.New(fakeAWSConfig("http://0.0.0.0:" + s3Port))
+	s.Client = s3.New(session)
 	_, err := s.Client.CreateBucket(&s3.CreateBucketInput{
 		Bucket: &bucketName,
 	})
@@ -204,13 +207,15 @@ func fakeAWSConfig(endpoint string) *aws.Config {
 	// don't
 	os.Setenv("AWS_ACCESS_KEY", "abc123")
 	os.Setenv("AWS_SECRET_KEY", "SEKRIT")
-	return defaults.DefaultConfig.Merge(&aws.Config{
+	config := defaults.Config()
+	config.MergeIn(&aws.Config{
 		Region:           aws.String("us-east-1"),
 		DisableSSL:       aws.Bool(true),
 		Endpoint:         &endpoint,
 		S3ForcePathStyle: aws.Bool(true),
 		//		LogLevel:         aws.LogLevel(aws.LogDebug),
 	})
+	return config
 }
 
 // WaitFor runs the try function repeatedly until it returns true. If
