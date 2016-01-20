@@ -1,63 +1,74 @@
 {
 	"ImportPath": "github.com/rainforestapp/testutil",
-	"GoVersion": "go1.5",
+	"GoVersion": "go1.5.3",
 	"Deps": [
 		{
 			"ImportPath": "github.com/aws/aws-sdk-go/aws",
-			"Comment": "v0.9.4rc5-2-g18ac217",
-			"Rev": "18ac217c5abb1a13a5a9b63c1a3aa3e74e8fdaee"
+			"Comment": "v1.0.8",
+			"Rev": "c924893c38ecc04b18d7aab8a7aa561cb8b4c4cc"
 		},
 		{
-			"ImportPath": "github.com/aws/aws-sdk-go/internal/endpoints",
-			"Comment": "v0.9.4rc5-2-g18ac217",
-			"Rev": "18ac217c5abb1a13a5a9b63c1a3aa3e74e8fdaee"
+			"ImportPath": "github.com/aws/aws-sdk-go/private/endpoints",
+			"Comment": "v1.0.8",
+			"Rev": "c924893c38ecc04b18d7aab8a7aa561cb8b4c4cc"
 		},
 		{
-			"ImportPath": "github.com/aws/aws-sdk-go/internal/protocol/query",
-			"Comment": "v0.9.4rc5-2-g18ac217",
-			"Rev": "18ac217c5abb1a13a5a9b63c1a3aa3e74e8fdaee"
+			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/query",
+			"Comment": "v1.0.8",
+			"Rev": "c924893c38ecc04b18d7aab8a7aa561cb8b4c4cc"
 		},
 		{
-			"ImportPath": "github.com/aws/aws-sdk-go/internal/protocol/rest",
-			"Comment": "v0.9.4rc5-2-g18ac217",
-			"Rev": "18ac217c5abb1a13a5a9b63c1a3aa3e74e8fdaee"
+			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/rest",
+			"Comment": "v1.0.8",
+			"Rev": "c924893c38ecc04b18d7aab8a7aa561cb8b4c4cc"
 		},
 		{
-			"ImportPath": "github.com/aws/aws-sdk-go/internal/protocol/restxml",
-			"Comment": "v0.9.4rc5-2-g18ac217",
-			"Rev": "18ac217c5abb1a13a5a9b63c1a3aa3e74e8fdaee"
+			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/restxml",
+			"Comment": "v1.0.8",
+			"Rev": "c924893c38ecc04b18d7aab8a7aa561cb8b4c4cc"
 		},
 		{
-			"ImportPath": "github.com/aws/aws-sdk-go/internal/protocol/xml/xmlutil",
-			"Comment": "v0.9.4rc5-2-g18ac217",
-			"Rev": "18ac217c5abb1a13a5a9b63c1a3aa3e74e8fdaee"
+			"ImportPath": "github.com/aws/aws-sdk-go/private/protocol/xml/xmlutil",
+			"Comment": "v1.0.8",
+			"Rev": "c924893c38ecc04b18d7aab8a7aa561cb8b4c4cc"
 		},
 		{
-			"ImportPath": "github.com/aws/aws-sdk-go/internal/signer/v4",
-			"Comment": "v0.9.4rc5-2-g18ac217",
-			"Rev": "18ac217c5abb1a13a5a9b63c1a3aa3e74e8fdaee"
+			"ImportPath": "github.com/aws/aws-sdk-go/private/signer/v4",
+			"Comment": "v1.0.8",
+			"Rev": "c924893c38ecc04b18d7aab8a7aa561cb8b4c4cc"
+		},
+		{
+			"ImportPath": "github.com/aws/aws-sdk-go/private/waiter",
+			"Comment": "v1.0.8",
+			"Rev": "c924893c38ecc04b18d7aab8a7aa561cb8b4c4cc"
 		},
 		{
 			"ImportPath": "github.com/aws/aws-sdk-go/service/s3",
-			"Comment": "v0.9.4rc5-2-g18ac217",
-			"Rev": "18ac217c5abb1a13a5a9b63c1a3aa3e74e8fdaee"
+			"Comment": "v1.0.8",
+			"Rev": "c924893c38ecc04b18d7aab8a7aa561cb8b4c4cc"
 		},
 		{
 			"ImportPath": "github.com/aws/aws-sdk-go/service/sqs",
-			"Comment": "v0.9.4rc5-2-g18ac217",
-			"Rev": "18ac217c5abb1a13a5a9b63c1a3aa3e74e8fdaee"
+			"Comment": "v1.0.8",
+			"Rev": "c924893c38ecc04b18d7aab8a7aa561cb8b4c4cc"
 		},
 		{
 			"ImportPath": "github.com/garyburd/redigo/internal",
-			"Rev": "5f01fdde266ce8448600f4a510bb1c05a8d288f1"
+			"Rev": "6ece6e0a09f28cc399b21550cbf37ab39ba63cce"
 		},
 		{
 			"ImportPath": "github.com/garyburd/redigo/redis",
-			"Rev": "5f01fdde266ce8448600f4a510bb1c05a8d288f1"
+			"Rev": "6ece6e0a09f28cc399b21550cbf37ab39ba63cce"
 		},
 		{
-			"ImportPath": "github.com/vaughan0/go-ini",
-			"Rev": "a98ad7ee00ec53921f08832bc06ecf7fd600e6a1"
+			"ImportPath": "github.com/go-ini/ini",
+			"Comment": "v1.8.6",
+			"Rev": "afbd495e5aaea13597b5e14fe514ddeaa4d76fc3"
+		},
+		{
+			"ImportPath": "github.com/jmespath/go-jmespath",
+			"Comment": "0.2.2",
+			"Rev": "3433f3ea46d9f8019119e7dd41274e112a2359a9"
 		}
 	]
 }
