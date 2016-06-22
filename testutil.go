@@ -12,13 +12,12 @@ import (
 	"os/exec"
 	"time"
 
+	"bitbucket.org/liamstask/goose/lib/goose"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/garyburd/redigo/redis"
-	"bitbucket.org/liamstask/goose/lib/goose"
-	"path/filepath"
 )
 
 const (
