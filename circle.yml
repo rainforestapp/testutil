@@ -1,3 +1,8 @@
+machine:
+  environment:
+    IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+    GOPATH: "/home/ubuntu/.go_workspace"
+    WORK_ROOT: "$GOPATH/src/$IMPORT_PATH"
 checkout:
   post:
     - gem install fake_sqs
@@ -6,7 +11,9 @@ dependencies:
   pre:
     - go get github.com/tools/godep
   override:
-    - godep go build
+    - mkdir -p $WORK_ROOT
+    - rsync -azC --delete ./ $WORK_ROOT
+    - cd $WORK_ROOT && godep go build
 test:
   override:
-    - godep go test -v -race
+    - cd $WORK_ROOT && go test -v $(go list ./... | grep -v /vendor/)
