@@ -3,6 +3,8 @@ machine:
     IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
     GOPATH: "/home/ubuntu/.go_workspace"
     WORK_ROOT: "$GOPATH/src/$IMPORT_PATH"
+  services:
+    - redis
 checkout:
   post:
     - gem install fake_sqs
