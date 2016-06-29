@@ -3,6 +3,8 @@ package testutil
 import (
 	"bytes"
 	"fmt"
+	"log"
+	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3"
@@ -84,4 +86,36 @@ func ExampleFakeS3() {
 	fmt.Println(string(hello))
 	// Output:
 	// Hello!
+}
+
+func ExampleShouldCrash() {
+	crasher := func() {
+		log.Fatalf("Crash!")
+	}
+	failed := false
+	fail := func() {
+		failed = true
+	}
+
+	// With crashing code under test
+	ShouldCrash("ExampleShouldCrash", crasher, fail)
+
+	fmt.Println(failed)
+	// Output:
+	// false
+}
+
+func ExampleShouldCrashFail() {
+	crasher := func() {
+		log.Printf("No crash!")
+		os.Exit(0)
+	}
+	fail := func() {
+		fmt.Println("failed!")
+	}
+
+	// With non-crashing code under test
+	ShouldCrash("ExampleShouldCrashFail", crasher, fail)
+	// Output:
+	// failed!
 }
