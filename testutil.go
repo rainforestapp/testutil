@@ -260,3 +260,24 @@ func CleanDB(p string) {
 		log.Fatal(err)
 	}
 }
+
+// ShouldCrash checks that the code under test, contained in the try function,
+// exits the program with a non-zero exit code (for example with a
+// log.Fatalf). If the try function does not exit the program with a non-zero
+// exit code, the fail function is called. testName is the top-level test name
+// from which ShouldCrash is called.
+//
+// This uses a technique from https://talks.golang.org/2014/testing.slide#23
+func ShouldCrash(testName string, try func(), fail func()) {
+	if os.Getenv("SHOULD_CRASH") == "1" {
+		try()
+		return
+	}
+	cmd := exec.Command(os.Args[0], "-test.run="+testName)
+	cmd.Env = append(os.Environ(), "SHOULD_CRASH=1")
+	err := cmd.Run()
+	if e, ok := err.(*exec.ExitError); ok && !e.Success() {
+		return
+	}
+	fail()
+}
