@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/s3"
@@ -89,33 +88,32 @@ func ExampleFakeS3() {
 }
 
 func ExampleShouldCrash() {
-	crasher := func() {
-		log.Fatalf("Crash!")
-	}
-	failed := false
-	fail := func() {
-		failed = true
-	}
-
 	// With crashing code under test
-	ShouldCrash("ExampleShouldCrash", crasher, fail)
-
-	fmt.Println(failed)
-	// Output:
-	// false
-}
-
-func ExampleShouldCrashFail() {
-	crasher := func() {
-		log.Printf("No crash!")
-		os.Exit(0)
+	try := func() {
+		log.Fatal("Crash!")
 	}
 	fail := func() {
+		// This should be a t.Fatal() or similar in a real test
 		fmt.Println("failed!")
 	}
 
+	ShouldCrash("ExampleShouldCrash", try, fail)
+	fmt.Println("succeeded!")
+	// Output:
+	// succeeded!
+}
+
+func ExampleShouldCrash_second() {
 	// With non-crashing code under test
-	ShouldCrash("ExampleShouldCrashFail", crasher, fail)
+	try := func() {
+		log.Printf("No crash!")
+	}
+	fail := func() {
+		// This should be a t.Fatal() or similar in a real test
+		fmt.Println("failed!")
+	}
+
+	ShouldCrash("ExampleShouldCrash_second", try, fail)
 	// Output:
 	// failed!
 }
