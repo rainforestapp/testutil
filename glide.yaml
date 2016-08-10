@@ -1,0 +1,57 @@
+package: github.com/rainforestapp/testutil
+import:
+- package: bitbucket.org/liamstask/goose
+  version: 8488cc47d90c8a502b1c41a462a6d9cc8ee0a895
+  subpackages:
+  - lib/goose
+- package: github.com/aws/aws-sdk-go
+  version: ~1.4.0
+  subpackages:
+  - aws
+  - aws/awserr
+  - aws/awsutil
+  - aws/client
+  - aws/client/metadata
+  - aws/corehandlers
+  - aws/credentials
+  - aws/credentials/ec2rolecreds
+  - aws/defaults
+  - aws/ec2metadata
+  - aws/request
+  - aws/session
+  - private/endpoints
+  - private/protocol/query
+  - private/protocol/query/queryutil
+  - private/protocol/rest
+  - private/protocol/restxml
+  - private/protocol/xml/xmlutil
+  - private/signer/v4
+  - private/waiter
+  - service/s3
+  - service/sqs
+- package: github.com/garyburd/redigo
+  version: ~1.0.0
+  subpackages:
+  - redis
+- package: github.com/go-ini/ini
+  version: ~1.12.0
+- package: github.com/go-sql-driver/mysql
+  version: 3654d25ec346ee8ce71a68431025458d52a38ac0
+- package: github.com/jmespath/go-jmespath
+  version: 0b12d6b521d83fc7f755e7cfc1b1fbdd35a01a74
+- package: github.com/kylelemons/go-gypsy
+  version: 42fc2c7ee9b8bd0ff636cd2d7a8c0a49491044c5
+  subpackages:
+  - yaml
+- package: github.com/lib/pq
+  version: 55196ec83d60d789e27b2627549bf00974a70084
+  subpackages:
+  - oid
+- package: github.com/mattn/go-sqlite3
+  version: 38ee283dabf11c9cbdb968eebd79b1fa7acbabe6
+- package: github.com/ziutek/mymysql
+  version: e5d54ebfda3f8a15e7b192b65c2aa10cb4fd7e04
+  subpackages:
+  - godrv
+  - mysql
+  - native

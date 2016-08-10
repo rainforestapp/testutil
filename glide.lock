@@ -1,0 +1,60 @@
+hash: ea8528f3fee2d94c7e5a844d2c60d56438b173f2218b71977da77473951ff2b6
+updated: 2016-08-10T16:54:22.541232804-07:00
+imports:
+- name: bitbucket.org/liamstask/goose
+  version: ""
+  subpackages:
+  - lib/goose
+- name: github.com/aws/aws-sdk-go
+  version: ""
+  subpackages:
+  - aws
+  - aws/awserr
+  - aws/awsutil
+  - aws/client
+  - aws/client/metadata
+  - aws/corehandlers
+  - aws/credentials
+  - aws/credentials/ec2rolecreds
+  - aws/defaults
+  - aws/ec2metadata
+  - aws/request
+  - aws/session
+  - private/endpoints
+  - private/protocol/query
+  - private/protocol/query/queryutil
+  - private/protocol/rest
+  - private/protocol/restxml
+  - private/protocol/xml/xmlutil
+  - private/signer/v4
+  - private/waiter
+  - service/s3
+  - service/sqs
+- name: github.com/garyburd/redigo
+  version: ""
+  subpackages:
+  - redis
+  - internal
+- name: github.com/go-ini/ini
+  version: ""
+- name: github.com/go-sql-driver/mysql
+  version: ""
+- name: github.com/jmespath/go-jmespath
+  version: ""
+- name: github.com/kylelemons/go-gypsy
+  version: ""
+  subpackages:
+  - yaml
+- name: github.com/lib/pq
+  version: ""
+  subpackages:
+  - oid
+- name: github.com/mattn/go-sqlite3
+  version: ""
+- name: github.com/ziutek/mymysql
+  version: ""
+  subpackages:
+  - godrv
+  - mysql
+  - native
+testImports: []
