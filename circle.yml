@@ -1,21 +1,17 @@
 machine:
-  environment:
-    IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
-    GOPATH: "/home/ubuntu/.go_workspace"
-    WORK_ROOT: "$GOPATH/src/$IMPORT_PATH"
   services:
     - redis
 checkout:
   post:
     - gem install fake_sqs
     - gem install fakes3
+    - sudo add-apt-repository ppa:masterminds/glide -y && sudo apt-get update -y
+    - sudo apt-get install glide -y
+
 dependencies:
-  pre:
-    - go get github.com/tools/godep
   override:
-    - mkdir -p $WORK_ROOT
-    - rsync -azC --delete ./ $WORK_ROOT
-    - cd $WORK_ROOT && godep go build
+    - glide install
+
 test:
   override:
-    - cd $WORK_ROOT && go test -v $(go list ./... | grep -v /vendor/)
+    - go test -v -race
