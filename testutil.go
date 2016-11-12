@@ -12,7 +12,6 @@ import (
 	"os/exec"
 	"time"
 
-	"bitbucket.org/liamstask/goose/lib/goose"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
@@ -235,29 +234,6 @@ func WaitFor(try func() bool, fail func(), timeout time.Duration) {
 			fail()
 			return
 		}
-	}
-}
-
-func CleanDB(p string) {
-	os.Setenv("ENV", "test")
-
-	conf, err := goose.NewDBConf(p, "test", "")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if err = goose.RunMigrations(conf, conf.MigrationsDir, 0); err != nil {
-		log.Fatal(err)
-	}
-
-	target, err := goose.GetMostRecentDBVersion(conf.MigrationsDir)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	if err := goose.RunMigrations(conf, conf.MigrationsDir, target); err != nil {
-		log.Fatal(err)
 	}
 }
 
