@@ -1,17 +1,28 @@
 machine:
+  environment:
+    IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+    GOPATH: "/home/ubuntu/.go_workspace"
+    BUILD: "$GOPATH/src/$IMPORT_PATH"
   services:
     - redis
+
 checkout:
   post:
     - gem install fake_sqs
     - gem install fakes3
     - sudo add-apt-repository ppa:masterminds/glide -y && sudo apt-get update -y
     - sudo apt-get install glide -y
+    # And now some hacks because CircleCI's go handling is braindead
+    - mkdir -p $BUILD
+    - rsync -av . $BUILD
 
 dependencies:
   override:
-    - glide install
+    - cd $BUILD; glide install
+    - go get -u github.com/golang/lint/golint
 
 test:
   override:
-    - go test -v -race
+    - cd $BUILD; go test -v -race $(glide novendor)
+    - cd $BUILD; go tool vet -all *.go
+    - cd $BUILD; golint
