@@ -1,12 +1,8 @@
-hash: ea8528f3fee2d94c7e5a844d2c60d56438b173f2218b71977da77473951ff2b6
-updated: 2016-08-10T16:54:22.541232804-07:00
+hash: c10fb532e086478ba0f6e77e69b690f649f41f33f13de5615b2032101f0f3eba
+updated: 2016-11-11T16:52:19.718738313-08:00
 imports:
-- name: bitbucket.org/liamstask/goose
-  version: ""
-  subpackages:
-  - lib/goose
 - name: github.com/aws/aws-sdk-go
-  version: ""
+  version: 6c577e9e7b08a6d10bad1c9703227cd0403a8dd7
   subpackages:
   - aws
   - aws/awserr
@@ -16,11 +12,15 @@ imports:
   - aws/corehandlers
   - aws/credentials
   - aws/credentials/ec2rolecreds
+  - aws/credentials/endpointcreds
+  - aws/credentials/stscreds
   - aws/defaults
   - aws/ec2metadata
   - aws/request
   - aws/session
+  - aws/signer/v4
   - private/endpoints
+  - private/protocol
   - private/protocol/query
   - private/protocol/query/queryutil
   - private/protocol/rest
@@ -30,29 +30,30 @@ imports:
   - private/waiter
   - service/s3
   - service/sqs
+  - service/sts
 - name: github.com/garyburd/redigo
-  version: ""
+  version: 8873b2f1995f59d4bcdd2b0dc9858e2cb9bf0c13
   subpackages:
-  - redis
   - internal
+  - redis
 - name: github.com/go-ini/ini
-  version: ""
+  version: 72ba3e6b9e6b87e0c74c9a7a4dc86e8dd8ba4355
 - name: github.com/go-sql-driver/mysql
-  version: ""
+  version: 3654d25ec346ee8ce71a68431025458d52a38ac0
 - name: github.com/jmespath/go-jmespath
-  version: ""
+  version: 0b12d6b521d83fc7f755e7cfc1b1fbdd35a01a74
 - name: github.com/kylelemons/go-gypsy
-  version: ""
+  version: 42fc2c7ee9b8bd0ff636cd2d7a8c0a49491044c5
   subpackages:
   - yaml
 - name: github.com/lib/pq
-  version: ""
+  version: 55196ec83d60d789e27b2627549bf00974a70084
   subpackages:
   - oid
 - name: github.com/mattn/go-sqlite3
-  version: ""
+  version: 38ee283dabf11c9cbdb968eebd79b1fa7acbabe6
 - name: github.com/ziutek/mymysql
-  version: ""
+  version: e5d54ebfda3f8a15e7b192b65c2aa10cb4fd7e04
   subpackages:
   - godrv
   - mysql

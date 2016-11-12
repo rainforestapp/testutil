@@ -1,9 +1,5 @@
 package: github.com/rainforestapp/testutil
 import:
-- package: bitbucket.org/liamstask/goose
-  version: 8488cc47d90c8a502b1c41a462a6d9cc8ee0a895
-  subpackages:
-  - lib/goose
 - package: github.com/aws/aws-sdk-go
   version: ~1.4.0
   subpackages:
