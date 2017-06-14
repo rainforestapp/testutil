@@ -117,3 +117,14 @@ func ExampleShouldCrash_second() {
 	// Output:
 	// failed!
 }
+
+func ExampleCaptureStdOut() {
+	printFn := func() error {
+		fmt.Println("This goes to stdout")
+		return nil
+	}
+	output, _ := CaptureStdOut(printFn)
+	fmt.Println(output)
+	// Output:
+	// This goes to stdout
+}
