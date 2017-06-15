@@ -266,7 +266,7 @@ func ShouldCrash(testName string, try func(), fail func()) {
 // CaptureStdOut takes a function that prints to os.Stdout and returns the
 // output as a string. If any error occurs when the given function is called,
 // an empty string and the error is returned to the caller of CaptureStdOut.
-func CaptureStdOut(printFunction func() error) (string, error) {
+func CaptureStdout(printFunction func() error) (string, error) {
 	r, w, err := os.Pipe()
 	if err != nil {
 		return "", err
