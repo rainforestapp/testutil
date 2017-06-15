@@ -4,7 +4,9 @@
 package testutil
 
 import (
+	"bytes"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"net"
@@ -259,4 +261,38 @@ func ShouldCrash(testName string, try func(), fail func()) {
 		return
 	}
 	fail()
+}
+
+// CaptureStdOut takes a function that prints to os.Stdout and returns the
+// output as a string. If any error occurs when the given function is called,
+// an empty string and the error is returned to the caller of CaptureStdOut.
+func CaptureStdout(printFunction func() error) (string, error) {
+	r, w, err := os.Pipe()
+	if err != nil {
+		return "", err
+	}
+
+	originalStdOut := os.Stdout
+	os.Stdout = w
+	defer func() {
+		os.Stdout = originalStdOut
+	}()
+
+	err = printFunction()
+	if err != nil {
+		return "", err
+	}
+
+	err = w.Close()
+	if err != nil {
+		return "", err
+	}
+
+	buf := bytes.Buffer{}
+	_, err = io.Copy(&buf, r)
+	if err != nil {
+		return "", err
+	}
+
+	return buf.String(), nil
 }
