@@ -9,7 +9,7 @@ machine:
 checkout:
   post:
     - gem install fake_sqs
-    - gem install fakes3
+    - gem install fakes3 -v 0.2.4
     - sudo add-apt-repository ppa:masterminds/glide -y && sudo apt-get update -y
     - sudo apt-get install glide -y
     # And now some hacks because CircleCI's go handling is braindead
@@ -23,6 +23,6 @@ dependencies:
 
 test:
   override:
-    - cd $BUILD; go test -v -race $(glide novendor)
+    - cd $BUILD; ./test.sh
     - cd $BUILD; go tool vet -all *.go
     - cd $BUILD; golint

@@ -5,9 +5,7 @@ package testutil
 
 import (
 	"bytes"
-	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net"
 	"os"
@@ -108,8 +106,6 @@ type FakeSQS struct {
 
 	// URL is the URL for a fake SQS queue.
 	URL string
-
-	cmd *exec.Cmd
 }
 
 // NewFakeSQS starts a fake_sqs process and creates a queue with name
@@ -117,16 +113,11 @@ type FakeSQS struct {
 // for the newly-created queue.
 func NewFakeSQS(queueName string) *FakeSQS {
 	s := new(FakeSQS)
-	s.cmd = exec.Command("fake_sqs")
-	err := s.cmd.Start()
-	if err != nil {
-		log.Fatal("Error starting fake_sqs, is it installed? Err:", err)
-	}
 
 	s.Session = session.New(fakeAWSConfig(sqsEndpoint))
 	tryConnect := func() bool {
 		s.Client = sqs.New(s.Session)
-		_, err = s.Client.CreateQueue(&sqs.CreateQueueInput{
+		_, err := s.Client.CreateQueue(&sqs.CreateQueueInput{
 			QueueName: &queueName,
 		})
 		return err == nil
@@ -142,9 +133,6 @@ func NewFakeSQS(queueName string) *FakeSQS {
 
 // Close cleans up after a fake_sqs process.
 func (s *FakeSQS) Close() {
-	if err := s.cmd.Process.Kill(); err != nil {
-		fmt.Println("Error killing fake_sqs:", err)
-	}
 }
 
 // FakeS3 holds a client for a fakes3 server. It requires the fakes3
@@ -156,20 +144,12 @@ type FakeS3 struct {
 
 	// Session is an AWS Session that uses the fake config.
 	Session *session.Session
-
-	tmpDir string
-	cmd    *exec.Cmd
 }
 
 // NewFakeS3 starts a fakes3 process and creates a bucket with name
 // bucketName. It returns a pointer to a FakeS3.
 func NewFakeS3(bucketName string) *FakeS3 {
 	s := new(FakeS3)
-	s.tmpDir, _ = ioutil.TempDir("", "fakeS3")
-	s.cmd = exec.Command("fakes3", "--port", s3Port, "--root", s.tmpDir)
-	if err := s.cmd.Start(); err != nil {
-		log.Fatal("Error starting fakes3, is it installed?", err)
-	}
 
 	tryConnect := func() bool {
 		c, err := net.Dial("tcp", ":"+s3Port)
@@ -181,7 +161,7 @@ func NewFakeS3(bucketName string) *FakeS3 {
 		}
 	}
 	fail := func() {
-		log.Fatal("fakes3 failed to start in a reasonable amount of time.")
+		log.Fatal("Could not connect to fakes3")
 	}
 	WaitFor(tryConnect, fail, 3*time.Second)
 
@@ -199,12 +179,6 @@ func NewFakeS3(bucketName string) *FakeS3 {
 
 // Close cleans up after and kills a fakes3 instance.
 func (s *FakeS3) Close() {
-	if err := s.cmd.Process.Kill(); err != nil {
-		fmt.Println("Error killing fake S3:", err)
-	}
-	if err := os.RemoveAll(s.tmpDir); err != nil {
-		fmt.Println("Error cleaning up after fake S3:", err)
-	}
 }
 
 // fakeAWSConfig returns a fake AWS config set up at endpoint. It is
