@@ -1,0 +1,24 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.9-stretch-browsers
+      - image: airdock/fake-sqs:0.3.1
+      - image: lphoward/fake-s3
+      - image: circleci/redis:5.0.3-alpine
+    working_directory: /go/src/github.com/rainforestapp/testutil
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies and build
+          command: |
+            set -euo pipefail
+            go get -u github.com/golang/lint/golint
+
+            go test -v -race
+            go tool vet -all *.go
+            golint
+
+workflows:
+  version: 2
