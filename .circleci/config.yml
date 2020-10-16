@@ -1,12 +1,24 @@
-version: 2
+version: 2.1
 
 jobs:
   build:
     docker:
       - image: circleci/golang:1.9-stretch-browsers
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_TOKEN
       - image: airdock/fake-sqs:0.3.1
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_TOKEN
       - image: lphoward/fake-s3
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_TOKEN
       - image: circleci/redis:5.0.3-alpine
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_TOKEN
     working_directory: /go/src/github.com/rainforestapp/testutil
     steps:
       - checkout
@@ -24,4 +36,6 @@ workflows:
   version: 2
   test:
     jobs:
-      - build
+      - build:
+          context:
+            - DockerHub
